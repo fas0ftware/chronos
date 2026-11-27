@@ -80,7 +80,23 @@ def main(argv: list[str] | None = None) -> int:
             msg = notify.weekly_message(s)
         else:
             after = settings.remind_after if settings else 20
-            msg = notify.reminder(s, datetime.now().astimezone(), after)
+            now = datetime.now().astimezone()
+            url = settings.iris_url if settings else ""
+            if url and not args.dry_run:
+                # Iris with tasks: open the task while the streak is at risk, close it once it is not.
+                import urllib.error
+                try:
+                    r = notify.sync_tasks(url, notify.streak_tasks(s, now, after, settings.lang))
+                    print(f"Iris: {r.get('new', 0)} new, {r.get('gone', 0)} closed")
+                    return 0
+                except urllib.error.HTTPError as exc:
+                    if exc.code != 404:      # 404: an older Iris without tasks, send a message instead
+                        print(f"chronos: Iris refused the task: {exc}", file=sys.stderr)
+                        return 1
+                except (OSError, ValueError) as exc:
+                    print(f"chronos: could not reach Iris: {exc}", file=sys.stderr)
+                    return 1
+            msg = notify.reminder(s, now, after)
             if msg is None:
                 return 0
         url = settings.iris_url if settings else ""

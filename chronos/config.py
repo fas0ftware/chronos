@@ -22,6 +22,7 @@ class Settings:
     all_branches: bool = True            # count commits on every local branch, not only HEAD
     iris_url: str = ""                   # e.g. http://127.0.0.1:8090/chronos
     remind_after: int = 20               # chronos remind: only after this hour (local time)
+    lang: str = "en"                     # language of the reminder: en | tr
 
 
 def default_path() -> Path:
@@ -64,6 +65,10 @@ def parse(data: dict) -> Settings:
     if not isinstance(hour, int) or isinstance(hour, bool) or not 0 <= hour <= 23:
         raise ConfigError("remind_after must be an hour from 0 to 23")
     s.remind_after = hour
+    lang = data.get("lang", "en")
+    if lang not in ("en", "tr"):
+        raise ConfigError('lang must be "en" or "tr"')
+    s.lang = lang
     return s
 
 

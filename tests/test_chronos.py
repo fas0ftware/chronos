@@ -274,3 +274,20 @@ def test_cli_demo_json_and_svg(capsys, tmp_path):
 def test_cli_rejects_bad_days(capsys):
     with pytest.raises(SystemExit):
         cli.main(["--demo", "--days", "0"])
+
+
+def test_streak_task_opens_only_when_at_risk_and_in_turkish():
+    late = NOW.replace(hour=21)
+    assert notify.streak_tasks(_streak_summary(4, True), late, 20) == []
+    assert notify.streak_tasks(_streak_summary(4, False), NOW.replace(hour=9), 20) == []
+    [t] = notify.streak_tasks(_streak_summary(4, False), late, 20, "tr")
+    assert t["id"] == "streak" and t["priority"] == "high" and t["title"] == "Bugün commit at: 4 günlük seri"
+    assert notify.iris_base("http://127.0.0.1:8090/chronos") == "http://127.0.0.1:8090"
+    with pytest.raises(ValueError):
+        notify.sync_tasks("http://10.0.0.5:8090/chronos", [])
+
+
+def test_config_lang():
+    assert config.parse({"lang": "tr"}).lang == "tr"
+    with pytest.raises(config.ConfigError):
+        config.parse({"lang": "de"})

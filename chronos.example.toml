@@ -21,3 +21,6 @@ iris_url = ""
 
 # `chronos remind` stays quiet before this hour.
 remind_after = 20
+
+# Language of the reminder: "en" or "tr".
+lang = "en"
