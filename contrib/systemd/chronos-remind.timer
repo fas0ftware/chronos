@@ -1,8 +1,11 @@
 [Unit]
-Description=Chronos streak reminder, every evening
+Description=Chronos streak check, every evening hour and just after midnight
 
 [Timer]
-OnCalendar=*-*-* 21:00
+# Opens the Iris task when the streak is at risk; the later runs close it once you committed,
+# the one after midnight closes it when the day is over.
+OnCalendar=*-*-* 20..23:00
+OnCalendar=*-*-* 00:05
 Persistent=false
 
 [Install]
