@@ -63,7 +63,7 @@ python -m chronos --demo                 # try it on made-up commits
 cp chronos.example.toml chronos.toml     # then set roots (and authors)
 python -m chronos                        # summary in the terminal
 python -m chronos week                   # this week against last week
-python -m chronos serve                  # the page on http://127.0.0.1:8748
+python -m chronos serve                  # the page on http://127.0.0.1:8747
 python -m chronos json                   # everything as JSON
 ```
 

@@ -11,7 +11,7 @@ from .render import heatmap_svg
 from .web_base import App
 
 STATIC = Path(__file__).resolve().parent / "static"
-DEFAULT_PORT = 8748
+DEFAULT_PORT = 8747
 CACHE_SECONDS = 60
 RANGES = (30, 90, 182, 365)
 
