@@ -186,7 +186,7 @@ def test_reminder_only_when_a_streak_is_at_risk_late_in_the_day():
 
 def test_send_refuses_plain_http_to_other_machines():
     with pytest.raises(ValueError):
-        notify.send("http://192.168.1.5/chronos", "t", "b")
+        notify.send("http://10.0.0.5/chronos", "t", "b")
     with pytest.raises(ValueError):
         notify.send("file:///etc/passwd", "t", "b")
 
