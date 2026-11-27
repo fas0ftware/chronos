@@ -1,7 +1,7 @@
 # Chronos
 
 [![CI](https://github.com/fas0ftware/chronos/actions/workflows/ci.yml/badge.svg)](https://github.com/fas0ftware/chronos/actions/workflows/ci.yml)
-![Version](https://img.shields.io/badge/version-0.1.0-blue)
+![Version](https://img.shields.io/badge/version-0.2.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 
@@ -89,12 +89,14 @@ address) set as `iris_url`; with `--dry-run`, or with no address set, they print
 
 - `chronos remind`: in the evening (after `remind_after`, default 20:00), when a streak is
   running and today has no commit yet: *"No commit yet today. One commit before midnight
-  keeps the 6-day streak going."* Otherwise it stays quiet.
+  keeps the 6-day streak going."* With Iris 0.3+ this is a **task** (`PUT /api/tasks/chronos`):
+  it opens once, and the next run closes it by itself as soon as you committed (or the day is
+  over). An older Iris or another ntfy server gets a plain message instead.
 - `chronos weekly`: last week's commits, active days, projects and the three busiest
   projects. Meant for Monday morning.
 
-Ready-made systemd user units are in [`contrib/systemd/`](contrib/systemd): a reminder at
-21:00, the summary on Monday at 09:05, and the page as a service. Edit `WorkingDirectory`,
+Ready-made systemd user units are in [`contrib/systemd/`](contrib/systemd): the streak check
+every hour from 20:00 to 23:00 and at 00:05, the summary on Monday at 09:05, and the page as a service. Edit `WorkingDirectory`,
 copy them to `~/.config/systemd/user/`, then:
 
 ```bash
@@ -117,6 +119,7 @@ systemctl --user enable --now chronos-remind.timer chronos-weekly.timer
 | `all_branches` | `true` | count every local branch, or only the checked-out one |
 | `iris_url` | none | where `remind` and `weekly` send to |
 | `remind_after` | `20` | the reminder stays quiet before this hour |
+| `lang` | `en` | `tr` for Turkish reminder texts |
 
 ## Security and privacy
 
