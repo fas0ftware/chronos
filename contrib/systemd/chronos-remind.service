@@ -1,0 +1,8 @@
+[Unit]
+Description=Chronos: tell Iris when today would break a commit streak
+
+[Service]
+Type=oneshot
+# Edit to where your checkout is (the settings file is found next to it).
+WorkingDirectory=%h/projects/chronos
+ExecStart=/usr/bin/python3 -m chronos --days 60 remind

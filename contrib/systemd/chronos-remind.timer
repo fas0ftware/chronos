@@ -1,0 +1,9 @@
+[Unit]
+Description=Chronos streak reminder, every evening
+
+[Timer]
+OnCalendar=*-*-* 21:00
+Persistent=false
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,7 @@
+[Unit]
+Description=Chronos: last week's commits to Iris
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/projects/chronos
+ExecStart=/usr/bin/python3 -m chronos --days 30 weekly

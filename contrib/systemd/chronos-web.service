@@ -1,0 +1,11 @@
+[Unit]
+Description=Chronos page on http://127.0.0.1:8748
+
+[Service]
+WorkingDirectory=%h/projects/chronos
+ExecStart=/usr/bin/python3 -m chronos serve
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target
