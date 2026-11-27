@@ -195,6 +195,8 @@ def test_weekly_message_uses_the_finished_week():
     s = stats.summarize(demo_commits(NOW), NOW)
     title, body = notify.weekly_message(s)
     assert str(s["last_week"]["commits"]) in title and "Streak" in body
+    one = dict(s, streak={"current": 1, "today_done": True, "longest": 1})
+    assert "Streak: 1 day (longest 1 day)." in notify.weekly_message(one)[1]
 
 
 # --- settings ----------------------------------------------------------------------

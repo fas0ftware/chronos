@@ -8,12 +8,16 @@ from datetime import datetime
 LOOPBACK = ("http://127.0.0.1", "http://localhost", "http://[::1]")
 
 
+def _days(n: int) -> str:
+    return f"{n} day" if n == 1 else f"{n} days"
+
+
 def weekly_message(s: dict) -> tuple[str, str]:
     w = s["last_week"]   # sent on Monday morning: "last week" is the finished one
     title = f"Chronos: {w['commits']} commits last week"
     lines = [f"{w['commits']} commits on {w['active_days']} days in {w['repos']} projects "
              f"(+{w['added']:,} / -{w['deleted']:,} lines).",
-             f"Streak: {s['streak']['current']} days (longest {s['streak']['longest']})."]
+             f"Streak: {_days(s['streak']['current'])} (longest {_days(s['streak']['longest'])})."]
     if w["top"]:
         lines.append("Most: " + ", ".join(f"{r['repo']} {r['commits']}" for r in w["top"][:3]) + ".")
     return title, "\n".join(lines)
