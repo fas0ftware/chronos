@@ -1,0 +1,23 @@
+# Copy to chronos.toml (next to the checkout) or ~/.config/chronos/config.toml.
+
+# Folders that hold your git repositories; each is searched `depth` levels down.
+roots = ["~/projects"]
+depth = 2
+
+# Your commit e-mail addresses. Leave empty to use each repository's own user.email.
+# Add every address you commit with (GitHub's noreply address, a work address, ...).
+authors = []
+
+# Folders to skip, and folders whose name should never be shown (they count as "private project").
+exclude = []
+private = []
+
+# Count commits on every local branch (true) or only the checked-out one (false).
+all_branches = true
+
+# Where `chronos weekly` and `chronos remind` send their message: Iris or any ntfy-compatible
+# address. Plain http only to this machine; anything else must be https.
+iris_url = ""
+
+# `chronos remind` stays quiet before this hour.
+remind_after = 20

@@ -1,0 +1,21 @@
+[project]
+name = "chronos"
+version = "0.1.0"
+description = "A diary of your commits across every local repository: streaks, heatmap, weekly summary"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+chronos = "chronos.__main__:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["chronos"]
+
+[tool.setuptools.package-data]
+chronos = ["static/*"]

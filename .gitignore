@@ -1,0 +1,6 @@
+# Your machine's settings: folders and e-mail addresses. Never committed.
+chronos.toml
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
